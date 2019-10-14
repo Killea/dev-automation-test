@@ -42,7 +42,7 @@ def main():
     elif para == 'count-migrations' or  para == 'count-migration' or  para == 'count':
         count_migrations()
     else:
-        print('please provide correct parameter')
+        print('please provide correct parameters')
 
 
 if __name__ == "__main__":
