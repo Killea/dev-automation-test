@@ -209,8 +209,8 @@ Jot down your findings, explaining why some tenants have migrations that others 
 #### ⚫Before start
 Fork the project and clone it to the local disk.
 Install docker and docker-compose on your computer. In a terminal, use <code>docker --version</code>
-and  <code>docker-compose --version</code>  to make sure **docker** can run
-properly.
+and  <code>docker-compose --version</code>  to make sure **docker** are installed properly. 
+Run something like<code>systemctl status docker</code> to make sure docker is active, otherwise run <code>systemctl start docker</code>
 
 On some  platforms, you may have to always use **root** to run the commands mentioned below.
 
@@ -248,13 +248,10 @@ services:
             - '127.0.0.1:3306:3306'
 ```
 
-Run <code>docker-compose up -d</code> to Create the **myjenkins** and **mysql** images.
-Run <code>docker-compose start myjenkins</code> to start jenkins.
-Run <code>docker-compose start db</code> to start mysql.
-Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **dev-automation-test_myjenkins_1**
+Run <code>docker-compose up -d</code> to start the **myjenkins** and **mysql** images.
+Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **dev-automation-test_myjenkins_1**  (Names can be different!)
 
-
-Run <code> docker exec -it dev-automation-test_myjenkins_1 bash</code> to enter the container's shell.
+Run something like <code> docker exec -it dev-automation-test_myjenkins_1 bash</code> to enter the container's shell(make sure the image name is correct).
 
 In the container's shell, run <code>cat /var/jenkins_home/secrets/initialAdminPassword</code> to get the admin
 password for Jenkins. It should be a string.
@@ -273,7 +270,7 @@ the dashboard of Jenkins.
 
 Run <code>docker ps</code> to get the container id, such as *5bec9dd13591*
 
-Run <code>docker cp /home/hank/dev-automation-test/database.sql 5bec9dd13591:/home/</code>, 
+Run <code>docker cp  ̶/̶h̶o̶m̶e̶/̶h̶a̶n̶k/dev-automation-test/database.sql 5bec9dd13591:/home/</code>, 
 make sure you use your own correct **path** and **container id** for this command.
 
 
@@ -320,11 +317,12 @@ Run the job.
 
 #### ⚫task 6 and ⚫task 7
 
-Login jenkins, create a pipeline job which is similar to the previous one. But for this job you need
+Login jenkins, create a pipeline job  which is similar to the previous one.Name it **run_migrations**.
+But for this job you need
 to check ☑️**This project is parameterized** because it has two parameters. 
 Add two string parameters, one is **TENANT_NAMES**, the other one is **MIGRATION_NAME**. Please choose ☑️**Trim the string** for these two parameters. 
 
-For tast 7, you need to add a **Choice Parameter** as well. The two options are **sequential** and **parallel**.
+For tast 7, you need to add a **Choice Parameter** as well. Name it **RUN_TYPE**. The two choices are **sequential** and **parallel**.
 
 It should be like this picture below when you run / build this job.
 ![Pix](data:image/png;base64,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)
@@ -347,10 +345,10 @@ Run <code>docker ps</code> to get the **myjenkins** container id, such as *5bec9
 Run <code>docker cp /home/hank/dev-automation-test/deploy.py 5bec9dd13591:/home/</code> to copy this Python script(deploy.py) into the docker image.
 
 
-Run <code>docker exec -it dev-automation-test_myjenkins_1 bash </code> to enter the container's shell.
+Run <code>docker exec -it dev-automation-test_myjenkins_1 bash </code> to **enter the container's shell**.
 
 
-Then, you can run something like <code>python3 deploy.py check-migration 'migr2'</code> to check DB migrations for all tenants.
+Then, **in the container's shell**, you can run something like <code>python3 deploy.py check-migration 'migr2'</code> to check DB migrations for all tenants.
 
 Or run <code>python3 deploy.py count-migrations</code> to count the migrations for all tenants.
 #### ⚫task 10

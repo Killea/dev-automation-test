@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Database init') {
             steps {
-                sh 'mysql -h db -u root -$MYSQL_ROOT_PASSWORD  < /home/database.sql'
+                sh 'mysql -h db -u root -p$MYSQL_ROOT_PASSWORD  < /home/database.sql'
             }
     }
     }
