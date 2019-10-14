@@ -357,4 +357,4 @@ Then, you can run something like  <code>python3 deploy.py check-migration 'migr2
 Or run <code>python3 deploy.py count-migrations</code> to count the migrations for all tenants.
 #### ⚫task 10
 
-Create report.md
+Create migration_summary.md
