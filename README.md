@@ -285,7 +285,7 @@ In any shell, run code <code>wget http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar
 
 **When you have finished the task 5 and task 7**, go back to task 4 and do these steps to get the xml files for these jobs.
 
-Then, run code <code>java -jar jenkins-cli.jar -s http://127.0.0.1:8080 -auth YOUR_USER:YOUR_PASSWORD get-job run_migrations > run_migrations.xml</code>.
+Run code <code>java -jar jenkins-cli.jar -s http://127.0.0.1:8080 -auth YOUR_USER:YOUR_PASSWORD get-job run_migrations > run_migrations.xml</code>.
 
 Run code <code>java -jar jenkins-cli.jar -s http://127.0.0.1:8080 -auth YOUR_USER:YOUR_PASSWORD get-job init_database >init_database.xml</code>.
 

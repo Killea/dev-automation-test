@@ -33,6 +33,9 @@ def count_migrations():
 
 
 def main():
+    if (len(sys.argv)<2):
+        print('please provide a parameter')
+        return
     para = sys.argv[1]
     if para == 'check-migration' or para == 'check-migrations' or para == 'check':
         check_migration()
