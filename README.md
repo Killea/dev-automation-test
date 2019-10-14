@@ -215,9 +215,7 @@ properly.
 On some  platforms, you may have to always use **root** to run the commands mentioned below.
 
 #### ⚫task 1 and ⚫task 2
-As the project has been cloned to the local path, enter the project's directory. Run
- <code>docker-compose up -d</code> to pull these two docker image files.
-
+As the project has been cloned to the local path, enter the project's directory.
 
 We need to build our own jenkins image. Create a new file 'Dockerfile' with the content below:
 
@@ -228,13 +226,13 @@ USER root
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install  mysql-client python3 python3-pip -y
+RUN apt-get install default-libmysqlclient-dev -y
+RUN pip3 install mysqlclient
 ```
-Run <code>docker build -t alaya/test .</code>
+Run <code>docker build -t alaya/test .</code> Don't forget to copy the last dot(**.**).
 
 
-
-
-Edit **docker-compose.yml** file like this:
+Edit **docker-compose.yml** file and make it like this:
 ```
 version: '2'
 services:
@@ -250,7 +248,7 @@ services:
             - '127.0.0.1:3306:3306'
 ```
 
-Run <code>docker-compose up -d</code> to Create the **myjenkins** image.
+Run <code>docker-compose up -d</code> to Create the **myjenkins** and **mysql** images.
 Run <code>docker-compose start myjenkins</code> to start jenkins.
 Run <code>docker-compose start db</code> to start mysql.
 Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **dev-automation-test_myjenkins_1**
@@ -259,14 +257,14 @@ Run <code>docker ps</code> to check the image you just build and get the name of
 Run <code> docker exec -it dev-automation-test_myjenkins_1 bash</code> to enter the container's shell.
 
 In the container's shell, run <code>cat /var/jenkins_home/secrets/initialAdminPassword</code> to get the admin
-password for Jenkins.
+password for Jenkins. It should be a string.
 
-cat /var/jenkins_home/secrets/initialAdminPassword
 
-Use your browser, such as Firefox to visit http://127.0.0.1:8080 and input the password you just get. Then, click the 
+
+Use your browser, such as Firefox, to visit http://127.0.0.1:8080 and input the password you just get. Then, click the 
 **'Install suggested plugins'**. After the plugins are installed
 , you can set the user name and password for your Jenkins. Next, you can set the 
-Jenkins URL to http://127.0.0.1:8080/. Click 'Save and Finish' button, you will get to
+Jenkins URL to http://127.0.0.1:8080/. Click 'Save and Finish' button, you will be redirected to
 the dashboard of Jenkins.
 
 
@@ -352,7 +350,7 @@ Run <code>docker cp /home/hank/dev-automation-test/deploy.py 5bec9dd13591:/home/
 Run <code>docker exec -it dev-automation-test_myjenkins_1 bash </code> to enter the container's shell.
 
 
-Then, you can run something like  <code>python3 deploy.py check-migration 'migr2'</code> to check DB migrations for all tenants.
+Then, you can run something like <code>python3 deploy.py check-migration 'migr2'</code> to check DB migrations for all tenants.
 
 Or run <code>python3 deploy.py count-migrations</code> to count the migrations for all tenants.
 #### ⚫task 10
