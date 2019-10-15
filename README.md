@@ -247,7 +247,7 @@ services:
         ports:
             - '127.0.0.1:3306:3306'
 ```
-
+In a shell, Enter the **dev-automation-test** directory.
 Run <code>docker-compose up -d</code> to start the **myjenkins** and **mysql** images.
 Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **devautomationtest_myjenkins_1**  (Names can be different!)
 
