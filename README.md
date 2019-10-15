@@ -249,9 +249,9 @@ services:
 ```
 
 Run <code>docker-compose up -d</code> to start the **myjenkins** and **mysql** images.
-Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **dev-automation-test_myjenkins_1**  (Names can be different!)
+Run <code>docker ps</code> to check the image you just build and get the name of the new image, such as **devautomationtest_myjenkins_1**  (Names can be different!)
 
-Run something like <code> docker exec -it dev-automation-test_myjenkins_1 bash</code> to enter the container's shell(make sure the image name is correct).
+Run something like <code> docker exec -it devautomationtest_myjenkins_1 bash</code> to enter the container's shell(make sure the image name is correct).
 
 In the container's shell, run <code>cat /var/jenkins_home/secrets/initialAdminPassword</code> to get the admin
 password for Jenkins. It should be a string.
@@ -345,7 +345,7 @@ Run <code>docker ps</code> to get the **myjenkins** container id, such as *5bec9
 Run <code>docker cp /home/hank/dev-automation-test/deploy.py 5bec9dd13591:/home/</code> to copy this Python script(deploy.py) into the docker image.
 
 
-Run <code>docker exec -it dev-automation-test_myjenkins_1 bash </code> to **enter the container's shell**.
+Run <code>docker exec -it devautomationtest_myjenkins_1 bash </code> to **enter the container's shell**.
 
 
 Then, **in the container's shell**, you can run something like <code>python3 deploy.py check-migration 'migr2'</code> to check DB migrations for all tenants.
