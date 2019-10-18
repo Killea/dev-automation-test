@@ -240,6 +240,8 @@ services:
         image: alaya/test:latest 
         ports:
             - '127.0.0.1:8080:8080'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'mHsJ33lF+1FZ'
     db:
         image: mysql:5.7
         environment:
